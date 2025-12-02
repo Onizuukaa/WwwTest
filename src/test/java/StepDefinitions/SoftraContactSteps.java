@@ -52,6 +52,7 @@ public class SoftraContactSteps {
 	}
 
 	@When("user click contact tab")
+
 	public void user_click_contact_tab() throws InterruptedException {
 		driver.findElement(By.xpath("//a[normalize-space()='Kontakt']")).click();
 		Thread.sleep(2000);
