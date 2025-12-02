@@ -12,6 +12,14 @@ repositories {
 test {
     systemProperty "wwwScope", System.getProperty("wwwScope")
     testLogging.showStandardStreams = true
+
+    useJUnit() // lub useTestNG() zależy co masz
+
+    // Dodaj to, żeby uruchamiał tylko klasę TestRunner
+    filter {
+        includeTestsMatching "StepDefinitions.TestRunner"
+    }
+
 }
 dependencies {
     implementation 'io.cucumber:cucumber-java:7.14.0'
