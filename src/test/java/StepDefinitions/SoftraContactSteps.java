@@ -62,11 +62,27 @@ public class SoftraContactSteps {
 	public void checkContactEmail() throws InterruptedException {
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		String script = String.format("window.scrollBy(0, 200)");
-		js.executeScript(script);
 
-		driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]")).click();
+		// Krok 1: Znajdź ten element i przypisz do zmiennej (jeszcze nie klikaj!)
+		WebElement targetElement = driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]"));
+
+		// Krok 2: Opcjonalnie zescrolluj do niego (to jest bardziej precyzyjne niż scrollBy(0,200))
+		js.executeScript("arguments[0].scrollIntoView(true);", targetElement);
+
+		// Daj mu ułamek sekundy na ustabilizowanie widoku
+		Thread.sleep(500);
+
+		// Krok 3: KLUCZOWA ZMIANA - Kliknięcie Javascriptem
+		// To omija błąd "ElementNotInteractableException"
+		js.executeScript("arguments[0].click();", targetElement);
+
 		Thread.sleep(2000);
+
+//		String script = String.format("window.scrollBy(0, 200)");
+//		js.executeScript(script);
+//
+//		driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]")).click();
+//		Thread.sleep(2000);
 	}
 
 	@Then("contact email should be visible")
