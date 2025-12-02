@@ -27,7 +27,7 @@ public class DriverFactory {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.addArguments("--start-maximized");
-                // chromeOptions.addArguments("--headless=new"); // Opcjonalnie
+                chromeOptions.addArguments("--headless=new"); // Opcjonalnie
                 webDriver = new ChromeDriver(chromeOptions);
 
         driver.set(webDriver);
