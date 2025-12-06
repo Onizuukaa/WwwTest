@@ -9,32 +9,38 @@ compileTestJava.options.encoding = 'UTF-8'
 repositories {
     mavenCentral()
 }
+
+dependencies {
+    implementation("org.seleniumhq.selenium:selenium-java:4.38.0")
+    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
+
+    implementation("io.cucumber:cucumber-java:7.32.0")
+    testImplementation("io.cucumber:cucumber-junit:7.32.0")
+
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation("ch.qos.logback:logback-classic:1.5.21")
+}
+
 test {
-    systemProperty "wwwScope", System.getProperty("wwwScope")
-    testLogging.showStandardStreams = true
+    // Mówimy Gradle, żeby używał JUnit 4
     useJUnit()
+
+// Ważne: Przekazywanie tagów z Jenkinsa (-Dcucumber.filter.tags)
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+
+    // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
     scanForTestClasses = false
     include "**/TestRunner.class"
 
+
+    // Logowanie wyników w konsoli
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
         showStandardStreams = true
     }
+}
 
-}
-dependencies {
-    implementation 'io.cucumber:cucumber-java:7.14.0'
-    implementation("org.seleniumhq.selenium:selenium-java:4.38.0")
-    testImplementation("io.cucumber:cucumber-junit:7.32.0")
-    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
-    testImplementation 'org.testng:testng:7.9.0'
-    implementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.13.2'
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-}
 wrapper {
     gradleVersion = '8.1'
 }
