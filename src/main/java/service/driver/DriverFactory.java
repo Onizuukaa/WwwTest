@@ -21,17 +21,13 @@ public class DriverFactory {
     }
 
     public static void initializeDriver() {
-        WebDriver webDriver;
-
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addArguments("--start-maximized");
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
+
         chromeOptions.addArguments("--headless=new"); // Opcjonalnie
         chromeOptions.addArguments("--window-size=1920,1080");
-        webDriver = new ChromeDriver(chromeOptions);
-
-        webDriver.manage().window().maximize();
 
         driver.set(webDriver);
     }
