@@ -23,16 +23,19 @@ public class DriverFactory {
     public static void initializeDriver() {
         WebDriver webDriver;
 
-                WebDriverManager.chromedriver().setup();
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--remote-allow-origins=*");
-                chromeOptions.addArguments("--start-maximized");
-                chromeOptions.addArguments("--headless=new"); // Opcjonalnie
-                chromeOptions.addArguments("--window-size=1920,1080");
-                webDriver = new ChromeDriver(chromeOptions);
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--remote-allow-origins=*");
+        chromeOptions.addArguments("--start-maximized");
+        chromeOptions.addArguments("--headless=new"); // Opcjonalnie
+        chromeOptions.addArguments("--window-size=1920,1080");
+        webDriver = new ChromeDriver(chromeOptions);
+
+        webDriver.manage().window().maximize();
 
         driver.set(webDriver);
     }
+
     public static void quitDriver() {
         if (driver.get() != null) {
             driver.get().quit();
