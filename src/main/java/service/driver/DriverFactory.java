@@ -27,7 +27,8 @@ public class DriverFactory {
         WebDriver webDriver = new ChromeDriver(chromeOptions);
 
         chromeOptions.addArguments("--headless=new"); // Opcjonalnie
-        chromeOptions.addArguments("--window-size=1920,1080");
+
+        webDriver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
 
         driver.set(webDriver);
     }
