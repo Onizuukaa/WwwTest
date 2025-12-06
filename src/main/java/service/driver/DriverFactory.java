@@ -1,6 +1,7 @@
 package service.driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -24,12 +25,9 @@ public class DriverFactory {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
-        WebDriver webDriver = new ChromeDriver(chromeOptions);
-
         chromeOptions.addArguments("--headless=new"); // Opcjonalnie
-
-        webDriver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
-
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
+        webDriver.manage().window().setSize(new Dimension(1920, 1080));
         driver.set(webDriver);
     }
 
