@@ -1,92 +1,62 @@
 package StepDefinitions;
 
 import org.openqa.selenium.*;
-
 import io.cucumber.java.en.*;
 import java.time.Duration;
-
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageFactory.SoftraContactPage;
 import service.driver.DriverFactory;
+import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertTrue;
 
 public class SoftraContactSteps {
 
-	WebDriver driver = DriverFactory.getDriver(); // Pobierasz szofera
-	private SoftraContactPage softraContactPage;
+    WebDriver driver = DriverFactory.getDriver(); // Pobierasz szofera
+    private SoftraContactPage softraContactPage;
 
-	@Given("browser window is open")
-	public void browser_is_open() {
+    @Given("browser window is open")
+    public void browser_is_open() {
+        softraContactPage = new SoftraContactPage(driver);
 
-		driver.manage().window().maximize();
+    }
 
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-	}
+    @And("user is on google search page")
+    public void user_is_on_google_search_page() {
+        driver.navigate().to("https://www.softra.pl/");
+    }
 
-	@And("user is on google search page")
-	public void user_is_on_google_search_page() {
+    @And("user accepts privacy prompt")
+    public void user_accepts_privacy_prompt() {
 
-		
-		driver.navigate().to("https://www.softra.pl/");
-		softraContactPage = new SoftraContactPage(driver);
-	}
+        // Użyj lokalizatora dla przycisku "Zaakceptuj wszystko"
+        String acceptButtonXPath = "//button[contains(., 'Akceptuj wszystko')]";
 
-	// W StepDefinitions/GoogleSearchSteps.java
+        // Użyj WebDriverWait, aby poczekać, aż baner się załaduje
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-	@And("user accepts privacy prompt")
-	public void user_accepts_privacy_prompt() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(acceptButtonXPath))).click();
+    }
 
-		// Użyj lokalizatora dla przycisku "Zaakceptuj wszystko"
-		String acceptButtonXPath = "//button[contains(., 'Akceptuj wszystko')]";
+    @When("user click contact tab")
+    public void user_click_contact_tab() {
+        softraContactPage.clickContactTab();
+    }
 
-		// Użyj WebDriverWait, aby poczekać, aż baner się załaduje
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    @And("check contact email")
+    public void checkContactEmail() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(acceptButtonXPath))).click();
+        String script = String.format("window.scrollBy(0, 200)");
+        js.executeScript(script);
 
-		// Opcjonalnie: Poczekaj chwilę na zniknięcie baneru
-		// try { Thread.sleep(1000); } catch (InterruptedException e) {}
-	}
+        driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]")).click();
+    }
 
-	@When("user click contact tab")
-	public void user_click_contact_tab() throws InterruptedException {
-
-		// 1. Znajdź element i przypisz do zmiennej
-		WebElement contactTab = driver.findElement(By.xpath("//a[normalize-space()='Kontakt']"));
-
-		// 2. Przygotuj mechanizm JavaScript
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-
-		// 3. Wykonaj "twarde" kliknięcie bezpośrednio w silniku przeglądarki
-		// To omija problem z tym, że element jest "nieinteraktywny" lub zasłonięty
-		js.executeScript("arguments[0].click();", contactTab);
-
-		// 4. Zostawiamy Twoje czekanie, żeby strona zdążyła się przeładować
-		Thread.sleep(2000);
-
-
-
-//		driver.findElement(By.xpath("//a[normalize-space()='Kontakt']")).click();
-//		Thread.sleep(2000);
-	}
-
-	@And("check contact email")
-	public void checkContactEmail() throws InterruptedException {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-
-		String script = String.format("window.scrollBy(0, 200)");
-		js.executeScript(script);
-
-		driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]")).click();
-		Thread.sleep(2000);
-	}
-
-	@Then("contact email should be visible")
-	public void contactEmailShouldBeVisible() {
-		assertTrue(softraContactPage.isEmailSerwisDisplayed());
-	}
+    @Then("contact email should be visible")
+    public void contactEmailShouldBeVisible() {
+        assertTrue(softraContactPage.isEmailSerwisDisplayed());
+    }
 
 }

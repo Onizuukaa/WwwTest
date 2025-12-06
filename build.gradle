@@ -33,7 +33,6 @@ test {
     scanForTestClasses = false
     include "**/TestRunner.class"
 
-
     // Logowanie wyników w konsoli
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
