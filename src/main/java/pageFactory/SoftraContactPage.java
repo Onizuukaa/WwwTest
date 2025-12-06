@@ -10,7 +10,7 @@ public class SoftraContactPage {
 
     private final WebDriver driver;
 
-    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'erwis@softra.pl')]")
+    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'s$rwis@softra.pl')]")
     private WebElement emailSerwis;
 
     public SoftraContactPage(final WebDriver driver) {
