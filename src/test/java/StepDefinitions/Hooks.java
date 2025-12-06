@@ -8,7 +8,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import service.driver.DriverFactory;
 
-
 public class Hooks {
 
 	@Before
@@ -19,19 +18,28 @@ public class Hooks {
 
 	@After
 	public void tearDown(Scenario scenario) {
+		// Log diagnostyczny - sprawdzamy czy wchodzi do metody
+		System.out.println("=== Zakończono scenariusz: " + scenario.getName() + " ===");
 
-		// Sprawdzamy, czy scenariusz zakończył się błędem
 		if (scenario.isFailed()) {
+			System.out.println("=== Scenariusz NIEUDANY. Próbuję zrobić zrzut ekranu... ===");
+
 			WebDriver driver = DriverFactory.getDriver();
 			if (driver != null) {
-				// Robimy zdjęcie
-				byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-
-				// Dołączamy zdjęcie do raportu Cucumbera
-				scenario.attach(screenshot, "image/png", "Zrzut ekranu błędu");
+				try {
+					byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+					scenario.attach(screenshot, "image/png", "Zrzut ekranu błędu");
+					System.out.println("=== Zrzut ekranu dołączony do raportu! ===");
+				} catch (Exception e) {
+					System.out.println("=== Błąd podczas robienia zdjęcia: " + e.getMessage() + " ===");
+				}
+			} else {
+				System.out.println("=== Błąd: Driver jest NULL, nie mogę zrobić zdjęcia! ===");
 			}
+		} else {
+			System.out.println("=== Scenariusz UDANY. Brak potrzeby zdjęcia. ===");
 		}
-		// Zamykamy przeglądarkę niezależnie od wyniku
+
 		DriverFactory.quitDriver();
 	}
 }
