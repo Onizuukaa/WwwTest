@@ -1,20 +1,19 @@
 package StepDefinitions;
 
 import org.junit.runner.RunWith;
-import io.cucumber.junit.CucumberOptions;
 import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features="src/test/resources/Features/SoftraContact.feature",
-glue= {"StepDefinitions"},
-plugin = {
+		features = "src/test/resources/Features/SoftraContact.feature", // lub po prostu "src/test/resources/Features"
+		glue = {"StepDefinitions"},
+		plugin = {
 				"pretty",
-		"html:taget/cucumber-reports/report.html",
-		"json:target/cucumber-reports/Cucumber.json" // <--- TO JEST KLUCZOWE!
+				"html:target/cucumber-reports/report.html", // Poprawiono literówkę 'taget' -> 'target'
+				"json:target/cucumber-reports/Cucumber.json"
 		},
-		monochrome= true
-		)
+		monochrome = true
+)
 public class TestRunner {
-
 }
