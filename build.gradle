@@ -12,19 +12,10 @@ repositories {
 test {
     systemProperty "wwwScope", System.getProperty("wwwScope")
     testLogging.showStandardStreams = true
-
-    // Ważne: Mówimy, że używamy JUnit 4 (bo masz @RunWith w TestRunnerze)
     useJUnit()
-
-    // Ważne: Wyłączamy "zgadywanie", co jest testem.
-    // To naprawi błąd z uruchamianiem Hooks i Steps jako testów.
     scanForTestClasses = false
-
-    // Mówimy wprost: "Uruchom tylko plik o nazwie TestRunner"
-    // Gwiazdki (**) oznaczają "w dowolnym folderze"
     include "**/TestRunner.class"
 
-    // Opcjonalnie: żebyś widział logi w konsoli Jenkinsa
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
         showStandardStreams = true
