@@ -1,3 +1,4 @@
+@SoftraContact
 Feature: feature to test google search functionality
 
   Scenario: Validate google search is working
