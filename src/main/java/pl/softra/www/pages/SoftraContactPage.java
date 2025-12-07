@@ -1,4 +1,4 @@
-package pageFactory;
+package pl.softra.www.pages;
 
 
 import org.openqa.selenium.JavascriptExecutor;

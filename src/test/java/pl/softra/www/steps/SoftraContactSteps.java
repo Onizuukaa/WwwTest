@@ -1,12 +1,12 @@
-package StepDefinitions;
+package pl.softra.www.steps;
 
 import org.openqa.selenium.*;
 import io.cucumber.java.en.*;
 import java.time.Duration;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageFactory.SoftraContactPage;
-import service.driver.DriverFactory;
+import pl.softra.www.pages.SoftraContactPage;
+import pl.softra.www.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.Assert.assertTrue;
