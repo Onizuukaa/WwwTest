@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage('Czyszczenie i Testy') {
 			steps {
-				// Usunąłem catchError - teraz jak testy padną, Jenkins oficjalnie zgłosi błąd
+				// Uruchamiamy testy. Jeśli padną, pipeline przerwie działanie i przejdzie do sekcji 'failure'
 				bat 'gradlew clean test'
 			}
 		}
@@ -16,8 +16,7 @@ pipeline {
 				channel: '#automatyka',
 				color: 'good',
 				message: "✅ SUKCES: Testy w projekcie ${env.JOB_NAME} przeszły pomyślnie! (<${env.BUILD_URL}|Otwórz>)"
-				// WAŻNE: Usunąłem linię 'tokenCredentialId'.
-				// Jenkins użyje automatycznie linku (Override URL) z ustawień globalnych.
+				// WAŻNE: Tu NIE MA linii 'tokenCredentialId', bo adres jest już w systemie!
 			)
 		}
 		failure {
@@ -25,6 +24,7 @@ pipeline {
 				channel: '#automatyka',
 				color: 'danger',
 				message: "🚨 AWARIA: Testy w projekcie ${env.JOB_NAME} nie powiodły się. (<${env.BUILD_URL}|Otwórz>)"
+				// Tu też usuwamy 'tokenCredentialId'
 			)
 		}
 	}
