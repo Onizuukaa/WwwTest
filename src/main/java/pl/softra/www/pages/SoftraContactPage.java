@@ -17,7 +17,7 @@ public class SoftraContactPage {
     private final WebDriverWait wait; // 1. Deklarujemy Wafera
 
 
-    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'sserwis@softra.pl')]")
+    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'serwis@softra.pl')]")
     private WebElement emailSerwis;
     @FindBy(xpath = "//a[normalize-space()='Kontakt']")
     private WebElement contactTab;
