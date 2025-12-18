@@ -22,7 +22,7 @@ public class SoftraContactPage {
     @FindBy(xpath = "//a[normalize-space()='Kontakt']")
     private WebElement contactTab;
 
-
+//blalllalaalalalall
     public SoftraContactPage(final WebDriver driver) {
         this.driver = driver;
         // 2. Inicjalizujemy Wafera (czekaj max 10 sekund)
