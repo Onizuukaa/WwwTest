@@ -1,7 +1,7 @@
 @SoftraContact
-Feature: feature to test google search functionality
+Feature: feature to test that email for support is available
 
-  Scenario: Validate google search is working
+  Scenario: Validate support email is available
     Given browser window is open
     And user is on google search page
     And user accepts privacy prompt
