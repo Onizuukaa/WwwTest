@@ -16,26 +16,19 @@ public class SoftraContactSteps {
     WebDriver driver = DriverFactory.getDriver(); // Pobierasz szofera
     private SoftraContactPage softraContactPage;
 
-    @Given("browser window is open")
-    public void browser_is_open() {
-        softraContactPage = new SoftraContactPage(driver);
-
-    }
-
-    @And("user is on google search page")
+    @Given("user is on Softra home page")
     public void user_is_on_google_search_page() {
+        softraContactPage = new SoftraContactPage(driver);
         driver.navigate().to("https://www.softra.pl/");
     }
 
     @And("user accepts privacy prompt")
     public void user_accepts_privacy_prompt() {
-
         // Użyj lokalizatora dla przycisku "Zaakceptuj wszystko"
         String acceptButtonXPath = "//button[contains(., 'Akceptuj wszystko')]";
 
         // Użyj WebDriverWait, aby poczekać, aż baner się załaduje
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(acceptButtonXPath))).click();
     }
 
