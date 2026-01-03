@@ -54,7 +54,6 @@ public class SoftraContactPage {
         // Ale zostańmy przy Twoim JS, tylko ukrytym tutaj:
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", supportSectionWrapper);
 
-        // Czekamy aż będzie klikalne i klikamy
         wait.until(ExpectedConditions.elementToBeClickable(supportSectionWrapper)).click();
     }
 
