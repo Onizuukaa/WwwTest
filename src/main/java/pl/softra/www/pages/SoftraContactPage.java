@@ -2,6 +2,7 @@ package pl.softra.www.pages;
 
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,10 +18,14 @@ public class SoftraContactPage {
     private final WebDriverWait wait; // 1. Deklarujemy Wafera
 
 
-    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'sserwis@softra.pl')]")
+    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'serwis@softra.pl')]")
     private WebElement emailSerwis;
     @FindBy(xpath = "//a[normalize-space()='Kontakt']")
     private WebElement contactTab;
+    @FindBy(css = ".wb-accordion-wrapper > .wb-accordion-item:nth-child(4) .wb-accordion-item-title")
+    private WebElement supportSectionWrapper;
+    @FindBy(xpath = "//button[contains(., 'Akceptuj wszystko')]")
+    private WebElement acceptCookiesBtn;
 
 
     public SoftraContactPage(final WebDriver driver) {
@@ -31,22 +36,33 @@ public class SoftraContactPage {
     }
 
     public void clickContactTab() {
-        // 3. NAJLEPSZY STANDARD: Czekamy aż element będzie klikalny
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(contactTab));
+        wait.until(ExpectedConditions.elementToBeClickable(contactTab)).click();
+    }
 
-        // Klikamy JavaScriptem (bo wiemy, że w Headless to pomaga)
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", element);
+    public void acceptCookies() {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesBtn)).click();
+        } catch (TimeoutException e) {
+            System.out.println("Baner cookies się nie pojawił lub został już zamknięty.");
+        }
+    }
+
+    public void expandSupportSection() {
+        // Przeniesiona logika scrollowania (jeśli jest konieczna)
+        // W Selenium 4 często wystarczy:
+        // new Actions(driver).scrollToElement(emailSectionWrapper).perform();
+
+        // Ale zostańmy przy Twoim JS, tylko ukrytym tutaj:
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", supportSectionWrapper);
+
+        // Czekamy aż będzie klikalne i klikamy
+        wait.until(ExpectedConditions.elementToBeClickable(supportSectionWrapper)).click();
     }
 
     public boolean isEmailSerwisDisplayed() {
         try {
-            // Czekamy aż będzie widoczny (nie tylko obecny w kodzie, ale widoczny dla oka)
-            wait.until(ExpectedConditions.visibilityOf(emailSerwis));
-            System.out.println("Jaki wynik: "+emailSerwis.isDisplayed());
-            return emailSerwis.isDisplayed();
+            return wait.until(ExpectedConditions.visibilityOf(emailSerwis)).isDisplayed();
         } catch (Exception e) {
-            System.out.println("Jaki wynik: "+emailSerwis.isDisplayed());
             return false;
         }
     }
