@@ -12,7 +12,7 @@ public class Hooks {
 
     @Before
     public void setUp() {
-        // Inicjalizacja sterownika przed każdym scenariuszem
+        //  Inicjalizacja sterownika przed każdym scenariuszem
         DriverFactory.initializeDriver();
     }
 
