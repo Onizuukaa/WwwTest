@@ -18,7 +18,6 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) {
-        // Jeśli scenariusz zakończył się błędem, robimy zrzut i dołączamy do raportu
         if (scenario.isFailed()) {
             WebDriver driver = DriverFactory.getDriver();
             if (driver != null) {
@@ -31,7 +30,6 @@ public class Hooks {
             }
         }
 
-        // Zawsze zamykamy przeglądarkę na koniec
         DriverFactory.quitDriver();
     }
 }

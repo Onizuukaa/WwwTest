@@ -1,1 +1,20 @@
+# --- Gradle (pliki budowania) ---
 .gradle/
+build/
+out/
+
+# --- IntelliJ IDEA (ustawienia lokalne IDE) ---
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# --- Java (pliki tymczasowe i logi) ---
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+
+# --- Inne systemowe ---
+.DS_Store
+Thumbs.db

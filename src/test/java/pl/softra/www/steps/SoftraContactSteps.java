@@ -1,10 +1,7 @@
 package pl.softra.www.steps;
 
-import org.openqa.selenium.*;
 import io.cucumber.java.en.*;
-import java.time.Duration;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import pl.softra.www.pages.SoftraContactPage;
 import pl.softra.www.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
@@ -17,19 +14,14 @@ public class SoftraContactSteps {
     private SoftraContactPage softraContactPage;
 
     @Given("user is on Softra home page")
-    public void user_is_on_google_search_page() {
+    public void user_is_on_softra_home_page() {
         softraContactPage = new SoftraContactPage(driver);
         driver.navigate().to("https://www.softra.pl/");
     }
 
     @And("user accepts privacy prompt")
     public void user_accepts_privacy_prompt() {
-        // Użyj lokalizatora dla przycisku "Zaakceptuj wszystko"
-        String acceptButtonXPath = "//button[contains(., 'Akceptuj wszystko')]";
-
-        // Użyj WebDriverWait, aby poczekać, aż baner się załaduje
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(acceptButtonXPath))).click();
+        softraContactPage.acceptCookies();
     }
 
     @When("user click contact tab")
@@ -37,19 +29,14 @@ public class SoftraContactSteps {
         softraContactPage.clickContactTab();
     }
 
-    @And("check contact email")
-    public void checkContactEmail() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        String script = String.format("window.scrollBy(0, 200)");
-        js.executeScript(script);
-
-        driver.findElement(By.xpath("//*[@id='page-wrapper']/div[1]/div/div/div[1]/div/div[3]/div/div[4]/div[1]")).click();
+    @And("user expands support section")
+    public void user_expands_support_section() {
+        // Cała "brzydka" logika (JS, scroll) siedzi teraz w tej metodzie
+        softraContactPage.expandSupportSection();
     }
 
     @Then("contact email should be visible")
     public void contactEmailShouldBeVisible() {
-        assertTrue(softraContactPage.isEmailSerwisDisplayed());
+        assertTrue("Email serwisowy nie jest widoczny!", softraContactPage.isEmailSerwisDisplayed());
     }
-
 }
