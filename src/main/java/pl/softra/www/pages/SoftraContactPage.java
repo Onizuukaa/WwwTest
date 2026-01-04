@@ -19,7 +19,7 @@ public class SoftraContactPage {
 
     @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'serwis@softra.pl')]")
     private WebElement emailSerwis;
-    @FindBy(xpath = "//a[normalize-space()='Kontakt']")
+    @FindBy(xpath = "//a[normalize-space()='Kkontakt']")
     private WebElement contactTab;
     @FindBy(css = ".wb-accordion-wrapper > .wb-accordion-item:nth-child(4) .wb-accordion-item-title")
     private WebElement supportSectionWrapper;
