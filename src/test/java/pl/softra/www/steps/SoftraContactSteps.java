@@ -14,23 +14,19 @@ public class SoftraContactSteps {
     private SoftraContactPage softraContactPage;
 
     @Given("user is on Softra home page")
-    public void user_is_on_softra_home_page() {
+    public void userIsOnSoftraHomePage() {
         softraContactPage = new SoftraContactPage(driver);
         driver.navigate().to("https://www.softra.pl/");
-    }
-
-    @And("user accepts privacy prompt")
-    public void user_accepts_privacy_prompt() {
         softraContactPage.acceptCookies();
     }
 
     @When("user click contact tab")
-    public void user_click_contact_tab() {
+    public void userClickContactTab() {
         softraContactPage.clickContactTab();
     }
 
     @And("user expands support section")
-    public void user_expands_support_section() {
+    public void userExpandsSupportSection() {
         // Cała "brzydka" logika (JS, scroll) siedzi teraz w tej metodzie
         softraContactPage.expandSupportSection();
     }
