@@ -6,13 +6,13 @@ version = '1.0-SNAPSHOT'
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.38.0")
-    implementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 
     implementation("io.cucumber:cucumber-java:7.32.0")
     testImplementation("io.cucumber:cucumber-junit:7.32.0")
@@ -37,9 +37,10 @@ test {
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
         showStandardStreams = true
+        exceptionFormat "full" // Pokaże pełny stacktrace błędu
     }
 }
 
 wrapper {
-    gradleVersion = '8.1'
+    gradleVersion = '8.5'
 }
