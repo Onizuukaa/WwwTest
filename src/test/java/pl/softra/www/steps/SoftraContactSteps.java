@@ -6,7 +6,6 @@ import pl.softra.www.pages.SoftraContactPage;
 import pl.softra.www.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SoftraContactSteps {
 
