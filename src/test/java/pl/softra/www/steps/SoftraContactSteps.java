@@ -5,8 +5,8 @@ import io.cucumber.java.en.*;
 import pl.softra.www.pages.SoftraContactPage;
 import pl.softra.www.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SoftraContactSteps {
 
@@ -33,6 +33,6 @@ public class SoftraContactSteps {
 
     @Then("contact email should be visible")
     public void contactEmailShouldBeVisible() {
-        assertTrue("Email serwisowy nie jest widoczny!", softraContactPage.isEmailSerwisDisplayed());
+        assertTrue(softraContactPage.isEmailSerwisDisplayed(),"Email serwisowy nie jest widoczny!");
     }
 }

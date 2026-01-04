@@ -13,20 +13,18 @@ repositories {
 
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.38.0")
-
     implementation("io.cucumber:cucumber-java:7.32.0")
-    testImplementation("io.cucumber:cucumber-junit:7.32.0")
 
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.32.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.0") // Przykładowa nowsza wersja
+    testImplementation("org.junit.platform:junit-platform-suite:1.12.0") // Do Runnera
 
     implementation("ch.qos.logback:logback-classic:1.5.21")
 }
 
 test {
-    // Mówimy Gradle, żeby używał JUnit 4
-    useJUnit()
+    useJUnitPlatform()
 
-// Ważne: Przekazywanie tagów z Jenkinsa (-Dcucumber.filter.tags)
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 
     // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
@@ -35,8 +33,8 @@ test {
 
     // Logowanie wyników w konsoli
     testLogging {
-        events "passed", "skipped", "failed", "standardOut", "standardError"
-        showStandardStreams = true
+        events "passed", "skipped", "failed"
+        showStandardStreams = true // To sprawia, że widać to w czasie rzeczywistym
         exceptionFormat "full" // Pokaże pełny stacktrace błędu
     }
 }
