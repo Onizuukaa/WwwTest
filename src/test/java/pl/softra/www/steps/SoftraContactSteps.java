@@ -3,6 +3,7 @@ package pl.softra.www.steps;
 import io.cucumber.java.en.*;
 
 import pl.softra.www.pages.SoftraContactPage;
+import pl.softra.www.utils.ConfigReader;
 import pl.softra.www.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -15,12 +16,13 @@ public class SoftraContactSteps {
     @Given("user is on Softra home page")
     public void userIsOnSoftraHomePage() {
         softraContactPage = new SoftraContactPage(driver);
-        driver.navigate().to("https://www.softra.pl/");
+        // Zamiast: driver.navigate().to("https://www.softra.pl/");
+        driver.navigate().to(ConfigReader.getProperty("app.url"));
         softraContactPage.acceptCookies();
     }
 
-    @When("user click contact tab")
-    public void userClickContactTab() {
+    @When("user clicks contact tab")
+    public void userClicksContactTab() {
         softraContactPage.clickContactTab();
     }
 
