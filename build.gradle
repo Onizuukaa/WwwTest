@@ -25,6 +25,8 @@ dependencies {
 test {
     useJUnitPlatform()
 
+    systemProperty "file.encoding", "UTF-8"
+
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 
     // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
