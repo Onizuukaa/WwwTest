@@ -17,7 +17,7 @@ import java.time.Duration;
 public class SoftraContactPage {
 
     private static final Logger logger = LoggerFactory.getLogger(SoftraContactPage.class);
-
+//test
     private final WebDriver driver;
     private final WebDriverWait wait; // 1. Deklarujemy Wafera
 
