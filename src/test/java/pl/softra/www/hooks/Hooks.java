@@ -7,11 +7,17 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import pl.softra.www.utils.DriverFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class Hooks {
 
+    private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
+
     @Before
-    public void setUp() {
+    public void setUp(Scenario scenario) {
+        logger.info("Zaczynam scenariusz: '{}'", scenario.getName()); // Widać co testujemy
         //  Inicjalizacja sterownika przed każdym scenariuszem
         DriverFactory.initializeDriver();
     }
@@ -25,11 +31,12 @@ public class Hooks {
                     byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
                     scenario.attach(screenshot, "image/png", "Zrzut ekranu");
                 } catch (Exception e) {
-                    System.out.println("Nie udało się zrobić zrzutu ekranu: " + e.getMessage());
+                    //System.out.println("Nie udało się zrobić zrzutu ekranu: " + e.getMessage());
+                    logger.error("Nie udało się zrobić zrzutu ekranu", e);
                 }
             }
         }
-
+        logger.info("Konczę scenariusz: '{}' ze statusem: {}", scenario.getName(), scenario.getStatus()); // DODANE
         DriverFactory.quitDriver();
     }
 }
