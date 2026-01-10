@@ -34,6 +34,9 @@ test {
     systemProperty "file.encoding", "UTF-8"
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 
+    systemProperty "sun.stdout.encoding", "UTF-8"
+    systemProperty "sun.stderr.encoding", "UTF-8"
+
     // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
     scanForTestClasses = false
     include "**/TestRunner.class"
