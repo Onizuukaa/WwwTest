@@ -4,13 +4,6 @@ plugins {
 group = 'pl.softra.www'
 version = '1.0-SNAPSHOT'
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
-}
-
 repositories {
     mavenCentral()
 }
@@ -18,19 +11,27 @@ repositories {
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.39.0")
     implementation("io.cucumber:cucumber-java:7.32.0")
-
     testImplementation("io.cucumber:cucumber-junit-platform-engine:7.32.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.12.0") // Przykładowa nowsza wersja
     testImplementation("org.junit.platform:junit-platform-suite:1.12.0") // Do Runnera
-
     implementation("ch.qos.logback:logback-classic:1.5.21")
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
 }
 
 test {
     useJUnitPlatform()
 
     systemProperty "file.encoding", "UTF-8"
-
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 
     // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
