@@ -41,6 +41,7 @@ public class SoftraContactPage {
     public void clickContactTab() {
         wait.until(ExpectedConditions.elementToBeClickable(contactTab)).click();
         logger.info("Kliknięto w zakładkę Kontakt");
+        logger.info("Klikni\u0119to w zak\u0142adk\u0119 Kontakt");
     }
 
     public void acceptCookies() {
