@@ -34,6 +34,6 @@ public class SoftraContactSteps {
 
     @Then("contact email should be visible")
     public void contactEmailShouldBeVisible() {
-        assertTrue(softraContactPage.isEmailSerwisDisplayed(),"Email serwisowy nie jest widoczny!");
+        assertTrue(softraContactPage.isEmailSerwisDisplayed(),"Email serwisowy nie jest widoczny. ŁÓĘĄŚŻŹĆ!");
     }
 }
