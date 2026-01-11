@@ -21,7 +21,7 @@ public class SoftraContactPage {
     private final WebDriver driver;
     private final WebDriverWait wait; // 1. Deklarujemy Wafera
 
-    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'serwis@softra.pl')]")
+    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'sserwis@softra.pl')]")
     private WebElement emailSerwis;
     @FindBy(xpath = "//a[normalize-space()='Kontakt']")
     private WebElement contactTab;
@@ -40,30 +40,29 @@ public class SoftraContactPage {
 
     public void clickContactTab() {
         wait.until(ExpectedConditions.elementToBeClickable(contactTab)).click();
-        logger.info("Kliknięto w zakładkę Kontakt");
-        logger.info("Klikni\u0119to w zak\u0142adk\u0119 Kontakt");
+        logger.info("Clicked on 'Contact' tab");
     }
 
     public void acceptCookies() {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesBtn)).click();
-            logger.info("Zaakceptowano pliki cookies");
+            logger.info("Cookies accepted");
         } catch (TimeoutException e) {
-            logger.info("Baner cookies się nie pojawił lub został już zamknięty.");
+            logger.info("Cookies banner did not appear or was already closed");
         }
     }
 
     public void expandSupportSection() {
         new Actions(driver).scrollToElement(supportSectionWrapper).perform();
         wait.until(ExpectedConditions.elementToBeClickable(supportSectionWrapper)).click();
-        logger.info("Rozwinięto sekcję wsparcia");
+        logger.info("Support section expanded");
     }
 
     public boolean isEmailSerwisDisplayed() {
         try {
             return wait.until(ExpectedConditions.visibilityOf(emailSerwis)).isDisplayed();
         } catch (Exception e) {
-            logger.warn("Nie znaleziono elementu email serwisowy: {}", e.getMessage());
+            logger.warn("Support email element not found: {}", e.getMessage());
             return false;
         }
     }

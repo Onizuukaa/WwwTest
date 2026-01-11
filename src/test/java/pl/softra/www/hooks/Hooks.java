@@ -17,7 +17,7 @@ public class Hooks {
 
     @Before
     public void setUp(Scenario scenario) {
-        logger.info("Zaczynam scenariusz: '{}'", scenario.getName()); // Widać co testujemy
+        logger.info("Starting scenario: '{}'", scenario.getName()); // Widać co testujemy
         //  Inicjalizacja sterownika przed każdym scenariuszem
         DriverFactory.initializeDriver();
     }
@@ -32,11 +32,11 @@ public class Hooks {
                     scenario.attach(screenshot, "image/png", "Zrzut ekranu");
                 } catch (Exception e) {
                     //System.out.println("Nie udało się zrobić zrzutu ekranu: " + e.getMessage());
-                    logger.error("Nie udało się zrobić zrzutu ekranu", e);
+                    logger.error("Failed to take screenshot", e);
                 }
             }
         }
-        logger.info("Konczę scenariusz: '{}' ze statusem: {}", scenario.getName(), scenario.getStatus()); // DODANE
+        logger.info("Finished scenario: '{}' with status: {}", scenario.getName(), scenario.getStatus()); // DODANE
         DriverFactory.quitDriver();
     }
 }
