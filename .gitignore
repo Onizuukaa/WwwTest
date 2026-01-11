@@ -15,6 +15,11 @@ out/
 *.ctxt
 .mtj.tmp/
 
+# --- Cucumber / Raporty testowe ---
+target/
+test-output/
+cucumber-report/
+
 # --- Inne systemowe ---
 .DS_Store
 Thumbs.db

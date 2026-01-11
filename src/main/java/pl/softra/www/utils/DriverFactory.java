@@ -49,12 +49,11 @@ public class DriverFactory {
 
             default:
                 // Jeśli ktoś wpisze bzdury w configu, rzucamy wyjątkiem
-                throw new RuntimeException("Nieprawidłowa przeglądarka w configu: " + browser);
+                throw new RuntimeException("Invalid browser name in config file: " + browser);
         }
 
         // --- Wspólna konfiguracja ---
-        // Teraz operujemy na tym jednym, konkretnym driverze utworzonym wyżej
-        // Używamy Twojego pomysłu z setSize - jest lepszy dla CI/CD i headless!
+        // Ustawiamy rozdzielczość Full HD - bezpieczniej dla testów headless i Jenkinsa
         tempDriver.manage().window().setSize(new Dimension(1920, 1080));
         tempDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(globalWait));
 
@@ -65,7 +64,7 @@ public class DriverFactory {
     public static void quitDriver() {
         if (driver.get() != null) {
             driver.get().quit();
-            driver.remove(); // Ważne przy ThreadLocal, żeby czyścić pamięć wątku
+            driver.remove(); // Ważne: czyścimy pamięć wątku po zakończeniu
         }
     }
 }

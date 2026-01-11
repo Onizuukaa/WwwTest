@@ -19,9 +19,9 @@ public class SoftraContactPage {
     private static final Logger logger = LoggerFactory.getLogger(SoftraContactPage.class);
 
     private final WebDriver driver;
-    private final WebDriverWait wait; // 1. Deklarujemy Wafera
+    private final WebDriverWait wait;
 
-    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'sserwis@softra.pl')]")
+    @FindBy(xpath = "//a[contains(@href,'mailto') and contains(text(),'serwis@softra.pl')]")
     private WebElement emailSerwis;
     @FindBy(xpath = "//a[normalize-space()='Kontakt']")
     private WebElement contactTab;
@@ -67,5 +67,3 @@ public class SoftraContactPage {
         }
     }
 }
-
-

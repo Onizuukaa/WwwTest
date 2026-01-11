@@ -11,33 +11,22 @@ repositories {
 dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.39.0")
     implementation("io.cucumber:cucumber-java:7.32.0")
-    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.32.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.12.0") // Przykładowa nowsza wersja
-    testImplementation("org.junit.platform:junit-platform-suite:1.12.0") // Do Runnera
     implementation("ch.qos.logback:logback-classic:1.5.21")
+
+    testImplementation("io.cucumber:cucumber-junit-platform-engine:7.32.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.12.0")
+    testImplementation("org.junit.platform:junit-platform-suite:1.12.0")
 }
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-tasks.withType(Test) {
-    systemProperty "file.encoding", "UTF-8"
-}
-
-tasks.withType(Javadoc) {
     options.encoding = 'UTF-8'
 }
 
 test {
     useJUnitPlatform()
 
-    systemProperty "file.encoding", "UTF-8"
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 
-    systemProperty "sun.stdout.encoding", "UTF-8"
-    systemProperty "sun.stderr.encoding", "UTF-8"
-
-    // Wyłączamy domyślne skanowanie, bo uruchamiamy konkretny Runner
     scanForTestClasses = false
     include "**/TestRunner.class"
 

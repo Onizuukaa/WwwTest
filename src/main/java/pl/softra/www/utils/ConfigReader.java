@@ -10,25 +10,16 @@ public class ConfigReader {
 
     // Blok statyczny - uruchamia się tylko raz przy pierwszym użyciu klasy
     static {
-        try {
-            // Wskazujemy ścieżkę do pliku
-            String path = "src/test/resources/configuration.properties";
-
-            // Otwieramy strumień danych
-            FileInputStream input = new FileInputStream(path);
-
-            // Inicjalizujemy obiekt Properties i ładujemy dane z pliku
+        String path = "src/test/resources/configuration.properties";
+        try (FileInputStream input = new FileInputStream(path)) {
             properties = new Properties();
             properties.load(input);
-
-            input.close();
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException("Nie udało się załadować pliku configuration.properties!");
+            throw new RuntimeException("Failed to load configuration.properties file!", e);
         }
     }
 
-    // Metoda, której będziesz używać w testach
     public static String getProperty(String key) {
         return properties.getProperty(key);
     }

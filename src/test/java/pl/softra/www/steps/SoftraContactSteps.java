@@ -10,13 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SoftraContactSteps {
 
-    WebDriver driver = DriverFactory.getDriver(); // Pobierasz szofera
+    // Pobieramy instancję sterownika z naszej fabryki
+    WebDriver driver = DriverFactory.getDriver();
     private SoftraContactPage softraContactPage;
 
     @Given("user is on Softra home page")
     public void userIsOnSoftraHomePage() {
         softraContactPage = new SoftraContactPage(driver);
-        // Zamiast: driver.navigate().to("https://www.softra.pl/");
+
+        // Pobieramy adres URL z pliku konfiguracyjnego (zamiast wpisywać na sztywno)
         driver.navigate().to(ConfigReader.getProperty("app.url"));
         softraContactPage.acceptCookies();
     }
@@ -28,12 +30,11 @@ public class SoftraContactSteps {
 
     @And("user expands support section")
     public void userExpandsSupportSection() {
-        // Cała "brzydka" logika (JS, scroll) siedzi teraz w tej metodzie
         softraContactPage.expandSupportSection();
     }
 
     @Then("contact email should be visible")
     public void contactEmailShouldBeVisible() {
-        assertTrue(softraContactPage.isEmailSerwisDisplayed(),"Email serwisowy nie jest widoczny. ŁÓĘĄŚŻŹĆ!");
+        assertTrue(softraContactPage.isEmailSerwisDisplayed(),"Support email is not visible");
     }
 }
