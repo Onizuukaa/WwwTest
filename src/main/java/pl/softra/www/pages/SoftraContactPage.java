@@ -29,7 +29,7 @@ public class SoftraContactPage {
     private WebElement supportSectionWrapper;
     @FindBy(xpath = "//button[contains(., 'Akceptuj wszystko')]")
     private WebElement acceptCookiesBtn;
-
+// test
 
     public SoftraContactPage(final WebDriver driver) {
         this.driver = driver;
