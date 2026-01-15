@@ -4,8 +4,10 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.time.Duration;
 
@@ -22,10 +24,8 @@ public class DriverFactory {
     }
 
     public static void initializeDriver() {
-        // 1. Pobieramy nazwę przeglądarki z pliku config
         String browser = ConfigReader.getProperty("browser").toLowerCase();
 
-        // 2. Pobieramy czas oczekiwania i zamieniamy tekst na liczbę (int)
         int globalWait = Integer.parseInt(ConfigReader.getProperty("implicit.wait"));
 
         // Zmienna tymczasowa, żebyśmy mogli na niej operować przed włożeniem do ThreadLocal
@@ -40,21 +40,25 @@ public class DriverFactory {
                 break;
 
             case "firefox":
-                tempDriver = new FirefoxDriver();
+                FirefoxOptions firefoxOptions = new FirefoxOptions();
+                firefoxOptions.addArguments("-headless");
+                tempDriver = new FirefoxDriver(firefoxOptions);
                 break;
 
             case "edge":
-                tempDriver = new EdgeDriver();
+                EdgeOptions edgeOptions = new EdgeOptions();
+                edgeOptions.addArguments("--remote-allow-origins=*");
+                edgeOptions.addArguments("--headless=new");
+                tempDriver = new EdgeDriver(edgeOptions);
                 break;
 
             default:
-                // Jeśli ktoś wpisze bzdury w configu, rzucamy wyjątkiem
                 throw new RuntimeException("Invalid browser name in config file: " + browser);
         }
 
-        // --- Wspólna konfiguracja ---
-        // Ustawiamy rozdzielczość Full HD - bezpieczniej dla testów headless i Jenkinsa
         tempDriver.manage().window().setSize(new Dimension(1920, 1080));
+        // Poniższe zakomentowane dla headless. Powyższe lepiej zakomentować dla GUI.
+        //tempDriver.manage().window().maximize();
         tempDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(globalWait));
 
         // Na końcu wkładamy gotowego drivera do "pudełka" ThreadLocal
