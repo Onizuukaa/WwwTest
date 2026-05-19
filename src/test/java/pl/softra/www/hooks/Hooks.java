@@ -14,13 +14,13 @@ public class Hooks {
 
     private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
 
-    @Before
+    @Before("not @API")
     public void setUp(Scenario scenario) {
         logger.info("Starting scenario: '{}'", scenario.getName());
         DriverFactory.initializeDriver();
     }
 
-    @After
+    @After("not @API")
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
             WebDriver driver = DriverFactory.getDriver();
@@ -35,5 +35,12 @@ public class Hooks {
         }
         logger.info("Finished scenario: '{}' with status: {}", scenario.getName(), scenario.getStatus());
         DriverFactory.quitDriver();
+    }
+
+    // Opcjonalnie: Możesz dodać specjalny Hook tylko dla API
+    @Before("@API")
+    public void setUpApi() {
+        System.out.println(">>> Konfiguruję klienta API (bez przeglądarki)...");
+        // Tutaj mógłbyś np. ustawić RestAssured.baseURI, jeśli nie robisz tego w Steps
     }
 }
